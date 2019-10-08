@@ -12,26 +12,16 @@ use mauriziocingolani\lkns\classes\TransportationType;
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
  * @author Paolo Calvaresi <paolo.calvaresi.v@gmail.com>
  * @author Michele Domesi <m.domesi@hotmail.it>
- * @version 1.0.0
+ * @version 1.0.1
  */
 class B2CBasic {
 
-    protected $url;
-    private $agencyCode;
-    private $agencyUserName;
-    private $agencyPassword;
-    private $agencySignature;
-    private $languageCode;
+    private $_url;
 
     /* Metodi */
 
-    public function __construct($url, $agencyCode, $agencyUserName, $agencyPassword, $agencySignature, $languageCode) {
-        $this->url = $url;
-        $this->agencyCode = $agencyCode;
-        $this->agencyUserName = $agencyUserName;
-        $this->agencyPassword = $agencyPassword;
-        $this->agencySignature = $agencySignature;
-        $this->languageCode = $languageCode;
+    public function __construct($url) {
+        $this->_url = $url;
     }
 
     /**
@@ -51,17 +41,26 @@ class B2CBasic {
 
     /**
      * getSession
-     * The method is used to get a user's session or create a new one
+     * The method is used to get a user's session or create a new one.
+     * The $params parameter must contain the following elements:
+     * <ul>
+     * <li>agencyCode</li>
+     * <li>agencyUserName</li>
+     * <li>agencyPassword</li>
+     * <li>agencySignature</li>
+     * <li>languageCode</li>
+     * </ul>
+     * @param array $params
      * @return string
      */
-    public function getSession() {
-        $curl = new Curl($this->url . '/session');
+    public function getSession($params) {
+        $curl = new Curl($this->_url . '/session');
         $result = $curl->send(null, null, [
-            'agency-code:' . $this->agencyCode,
-            'agency-user-name:' . $this->agencyUserName,
-            'agency-password:' . $this->agencyPassword,
-            'agency-signature:' . $this->agencySignature,
-            'language-code:' . $this->languageCode,
+            'agency-code:' . $params['agencyCode'],
+            'agency-user-name:' . $params['agencyUserName'],
+            'agency-password:' . $params['agencyPassword'],
+            'agency-signature:' . $params['agencySignature'],
+            'language-code:' . $params['languageCode'],
         ]);
         $result = \json_decode($result);
         return $result->session;
@@ -81,18 +80,21 @@ class B2CBasic {
     public function getLocations(string $session, string $company_abbreviations = null, string $locationType = null) {
         $args = get_defined_vars();
         $queryString = $this->getQueryString($args);
-        $url = $this->url . '/locations';
+        $url = $this->_url . '/locations';
         if (!empty($queryString)) :
             $url .= '?' . $queryString;
         endif;
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
-        $data = [];
-        foreach ($result as $l) :
-            $data[] = new Location($l);
-        endforeach;
-        return $data;
+        if (is_array($result)) :
+            $data = [];
+            foreach ($result as $l) :
+                $data[] = new Location($l);
+            endforeach;
+            return $data;
+        endif;
+        return false;
     }
 
     /**
@@ -107,7 +109,7 @@ class B2CBasic {
     public function getRoutes(string $session, string $company_abbreviations = null, string $transportationType = null) {
         $args = get_defined_vars();
         $queryString = $this->getQueryString($args);
-        $url = $this->url . '/routes';
+        $url = $this->_url . '/routes';
         if (!empty($queryString)) :
             $url .= '?' . $queryString;
         endif;
@@ -131,7 +133,7 @@ class B2CBasic {
      * @return CancellationResponse
      */
     public function getCancellation(string $session, int $crs_reservation_id) {
-        $url = $this->url . '/cancellation' . '/' . $crs_reservation_id;
+        $url = $this->_url . '/cancellation' . '/' . $crs_reservation_id;
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
@@ -148,11 +150,11 @@ class B2CBasic {
      * @return String[]
      */
     public function getFinancialData(string $session, string $company_abbreviation) {
-        $url = $this->url . '/financial-data' . '/' . $company_abbreviation;
+        $url = $this->_url . '/financial-data' . '/' . $company_abbreviation;
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
-        return $result;
+        return is_array($result) ? $result : false;
     }
 
     /**
@@ -162,15 +164,18 @@ class B2CBasic {
      * @return Company[]
      */
     public function getCompanies(string $session) {
-        $url = $this->url . '/companies';
+        $url = $this->_url . '/companies';
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
-        $data = [];
-        foreach ($result as $r) :
-            $data[] = new Company($r);
-        endforeach;
-        return $data;
+        if (is_array($result)) :
+            $data = [];
+            foreach ($result as $r) :
+                $data[] = new Company($r);
+            endforeach;
+            return $data;
+        endif;
+        return false;
     }
 
     /**
@@ -180,15 +185,18 @@ class B2CBasic {
      * @return Country[]
      */
     public function getCountries(string $session) {
-        $url = $this->url . '/countries';
+        $url = $this->_url . '/countries';
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
-        $data = [];
-        foreach ($result as $r) :
-            $data[] = new Country($r);
-        endforeach;
-        return $data;
+        if (is_array($result)) :
+            $data = [];
+            foreach ($result as $r) :
+                $data[] = new Country($r);
+            endforeach;
+            return $data;
+        endif;
+        return false;
     }
 
     // CHIAMATE IN POST
@@ -206,7 +214,7 @@ class B2CBasic {
      * @return TripsWithDictionary
      */
     public function doTrips(string $session, $body) {
-        $url = $this->url . '/trips';
+        $url = $this->_url . '/trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -223,7 +231,7 @@ class B2CBasic {
      * @return TripsWithDictionary
      */
     public function dotSimpleTrips(string $session, $body) {
-        $url = $this->url . '/trips';
+        $url = $this->_url . '/trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -241,7 +249,7 @@ class B2CBasic {
      * @return TripsWithDictionary
      */
     public function doListOfTrips(string $session, $body) {
-        $url = $this->url . '/list-of-trips';
+        $url = $this->_url . '/list-of-trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -256,7 +264,7 @@ class B2CBasic {
      * @return PricingResponse
      */
     public function doPricing(string $session, $body) {
-        $url = $this->url . '/pricing';
+        $url = $this->_url . '/pricing';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -272,7 +280,7 @@ class B2CBasic {
      * @return BookingResponse
      */
     public function doBooking(string $session, $body) {
-        $url = $this->url . '/bookig';
+        $url = $this->_url . '/bookig';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -290,7 +298,7 @@ class B2CBasic {
      * @return ConfirmPaymentResponse
      */
     public function doConfirmPayment(string $session, $body) {
-        $url = $this->url . '/confirm-payment';
+        $url = $this->_url . '/confirm-payment';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
