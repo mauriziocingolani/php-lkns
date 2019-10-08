@@ -1,0 +1,35 @@
+{
+    "name": "mauriziocingolani/lkns",
+    "description": "Libreria per la gestione delle API [...]",
+    "keywords": [
+        "lkns",
+        "api",
+        "php"
+    ],
+    "authors": [
+        {
+            "name": "Maurizio Cingolani",
+            "email": "mauriziocingolani74@gmail.com",
+            "homepage": "http://www.mauriziocingolani.it"
+        },
+        {
+            "name": "Paolo Calvaresi",
+            "email": "paolo.calvaresi.v@gmail.com"
+        },
+        {
+            "name": "Michele Domesi",
+            "email": "m.domesi@hotmail.it"
+        }
+    ],
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "mauriziocingolani\\lkns\\": ""
+        }
+    }
+}
