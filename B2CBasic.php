@@ -73,11 +73,11 @@ class B2CBasic {
      * A location can be a part of one or more distinctive sections.
      * This entity is called “area”. There is an optional http get parameter, called locationType for fetching specific types of locations (sea ports, bus stations, etc.).
      * @param string session
-     * @param string $company_abbreviations A list of comma separated company abbreviations (es: AML,ANSF).
+     * @param string $companyAbbreviations A list of comma separated company abbreviations (es: AML,ANSF).
      * @param string $locationType Possible values are HARBOUR, GENERIC_LOCATION, BUS_STOP etc.
      * @return Location[]
      */
-    public function getLocations(string $session, string $company_abbreviations = null, string $locationType = null) {
+    public function getLocations(string $session, string $companyAbbreviations = null, string $locationType = null) {
         $args = get_defined_vars();
         $queryString = $this->getQueryString($args);
         $url = $this->_url . '/locations';
