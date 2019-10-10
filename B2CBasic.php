@@ -102,11 +102,11 @@ class B2CBasic {
      * This method fetches all the possible routes for each transportation type. Specifically, for the bus transportation part, data fetched include only those bus operators, who support this functionality. The integrators should contact [...] about the companies that support the functionality.
      * The response of the method, is a list of “Transportation” entities, in JSON format.
      * @param string session
-     * @param string $company_abbreviations A list of comma separated company abbreviations (es: AML,ANSF).
+     * @param string $companyAbbreviations A list of comma separated company abbreviations (es: AML,ANSF).
      * @param string $transportationType Possible values are BT (data for bus transportation), ST (data for sea transportation) and AT (data for both sea and bus transportation). Default value, is AT.
      * @return TransportationType[]
      */
-    public function getRoutes(string $session, string $company_abbreviations = null, string $transportationType = null) {
+    public function getRoutes(string $session, string $companyAbbreviations = null, string $transportationType = null) {
         $args = get_defined_vars();
         $queryString = $this->getQueryString($args);
         $url = $this->_url . '/routes';
