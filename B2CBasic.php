@@ -18,12 +18,12 @@ use mauriziocingolani\lkns\classes\{
  */
 class B2CBasic {
 
-    private $_url;
+    private $url;
 
     /* Metodi */
 
     public function __construct($url) {
-        $this->_url = $url;
+        $this->url = $url;
     }
 
     /**
@@ -56,7 +56,7 @@ class B2CBasic {
      * @return string
      */
     public function getSession($params) {
-        $curl = new Curl($this->_url . '/session');
+        $curl = new Curl($this->url . '/session');
         $result = $curl->send(null, null, [
             'agency-code:' . $params['agencyCode'],
             'agency-user-name:' . $params['agencyUserName'],
@@ -82,7 +82,7 @@ class B2CBasic {
     public function getLocations(string $session, string $companyAbbreviations = null, string $locationType = null) {
         $args = get_defined_vars();
         $queryString = $this->getQueryString($args);
-        $url = $this->_url . '/locations';
+        $url = $this->url . '/locations';
         if (!empty($queryString)) :
             $url .= '?' . $queryString;
         endif;
@@ -100,6 +100,35 @@ class B2CBasic {
     }
 
     /**
+     * getLocationsWithFilters 
+     * The method is used to search within the locations. Search can be performed on the Location Code, the Location Description and Country Code.
+     * A full match is required for any of these fields.
+     * The http get parameter “searchText”, is used for filtering the location data and fetching precisely what the user has asked for.
+     * The http get parameter “locationType“ (referred previously), may also be used.
+     * @param string session
+     * @param string $company_abbreviations A list of comma separated company abbreviations (es: AML,ANSF).
+     * @param string $locationType Possible values are HARBOUR, GENERIC_LOCATION, BUS_STOP etc.
+     * @param string $searchText (Required) A String to search for within Location Code, Location Description or Country Code.
+     * @return Location[]
+     */
+    public function getLocationsWithFilters(string $session, string $company_abbreviations = null, string $locationType = null, string $searchText = null) {
+        $args = get_defined_vars();
+        $queryString = $this->getQueryString($args);
+        $url = $this->url . '/locations-with-filter';
+        if (!empty($queryString)) :
+            $url .= '?' . $queryString;
+        endif;
+        $curl = new Curl($url);
+        $result = $curl->send($session);
+        $result = json_decode($result);
+        $data = [];
+        foreach ($result as $l) :
+            $data[] = new Location($l);
+        endforeach;
+        return $data;
+    }
+
+    /**
      * getRoutes
      * This method fetches all the possible routes for each transportation type. Specifically, for the bus transportation part, data fetched include only those bus operators, who support this functionality. The integrators should contact [...] about the companies that support the functionality.
      * The response of the method, is a list of “Transportation” entities, in JSON format.
@@ -111,7 +140,37 @@ class B2CBasic {
     public function getRoutes(string $session, string $companyAbbreviations = null, string $transportationType = null) {
         $args = get_defined_vars();
         $queryString = $this->getQueryString($args);
-        $url = $this->_url . '/routes';
+        $url = $this->url . '/routes';
+        if (!empty($queryString)) :
+            $url .= '?' . $queryString;
+        endif;
+        $curl = new Curl($url);
+        $result = $curl->send($session);
+        $result = json_decode($result);
+        $data = [];
+        foreach ($result as $t) :
+            $data[] = new TransportationType($t);
+        endforeach;
+        return $data;
+    }
+
+    /**
+     * getRoutesWithFilter
+     * This method fetches all the possible routes from a selected Origin.
+     * The Origin is given in the Search Text parameter and can be either the Location Code or Description.
+     * The response of the method, is a list of “Transportation” entities, in JSON format.
+     * The http get parameter “searchText”, is used for filtering the routes data and fetching precisely what the user has asked for. The search is performed within all records of the results
+     * @param string session
+     * @param string $company_abbreviations A list of comma separated company abbreviations (es: AML,ANSF).
+     * @param string $transportationType Possible values are BT (data for bus transportation), ST (data for sea transportation) and AT (data for both sea and bus transportation). Default value, is AT.
+     * @param string $searchText (Required) The Origin Location To Search for. Can be either Location Code or Description (es: PIR).
+     * @param string $destination The destination Location To Search for. Can be either Location Code or Description. (es: AEG)
+     * @return TransportationType[]
+     */
+    public function getRoutesWithFilter(string $session, string $company_abbreviations = null, string $transportationType = null, string $searchText = null, string $destination = null) {
+        $args = get_defined_vars();
+        $queryString = $this->getQueryString($args);
+        $url = $this->url . '/routes-with-filter';
         if (!empty($queryString)) :
             $url .= '?' . $queryString;
         endif;
@@ -135,7 +194,7 @@ class B2CBasic {
      * @return CancellationResponse
      */
     public function getCancellation(string $session, int $crs_reservation_id) {
-        $url = $this->_url . '/cancellation' . '/' . $crs_reservation_id;
+        $url = $this->url . '/cancellation' . '/' . $crs_reservation_id;
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
@@ -152,7 +211,7 @@ class B2CBasic {
      * @return String[]
      */
     public function getFinancialData(string $session, string $company_abbreviation) {
-        $url = $this->_url . '/financial-data' . '/' . $company_abbreviation;
+        $url = $this->url . '/financial-data' . '/' . $company_abbreviation;
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
@@ -166,7 +225,7 @@ class B2CBasic {
      * @return Company[]
      */
     public function getCompanies(string $session) {
-        $url = $this->_url . '/companies';
+        $url = $this->url . '/companies';
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
@@ -187,7 +246,7 @@ class B2CBasic {
      * @return Country[]
      */
     public function getCountries(string $session) {
-        $url = $this->_url . '/countries';
+        $url = $this->url . '/countries';
         $curl = new Curl($url);
         $result = $curl->send($session);
         $result = json_decode($result);
@@ -216,7 +275,7 @@ class B2CBasic {
      * @return TripsWithDictionary
      */
     public function doTrips(string $session, $body) {
-        $url = $this->_url . '/trips';
+        $url = $this->url . '/trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -233,7 +292,7 @@ class B2CBasic {
      * @return TripsWithDictionary
      */
     public function dotSimpleTrips(string $session, $body) {
-        $url = $this->_url . '/trips';
+        $url = $this->url . '/trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -251,7 +310,7 @@ class B2CBasic {
      * @return TripsWithDictionary
      */
     public function doListOfTrips(string $session, $body) {
-        $url = $this->_url . '/list-of-trips';
+        $url = $this->url . '/list-of-trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -266,7 +325,7 @@ class B2CBasic {
      * @return PricingResponse
      */
     public function doPricing(string $session, $body) {
-        $url = $this->_url . '/pricing';
+        $url = $this->url . '/pricing';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -282,7 +341,7 @@ class B2CBasic {
      * @return BookingResponse
      */
     public function doBooking(string $session, $body) {
-        $url = $this->_url . '/bookig';
+        $url = $this->url . '/bookig';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -300,7 +359,7 @@ class B2CBasic {
      * @return ConfirmPaymentResponse
      */
     public function doConfirmPayment(string $session, $body) {
-        $url = $this->_url . '/confirm-payment';
+        $url = $this->url . '/confirm-payment';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
