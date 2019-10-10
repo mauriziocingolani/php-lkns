@@ -2,9 +2,11 @@
 
 namespace mauriziocingolani\lkns;
 
-use mauriziocingolani\lkns\classes\AnalyticRoute;
-use mauriziocingolani\lkns\classes\Location;
-use mauriziocingolani\lkns\classes\TransportationType;
+use mauriziocingolani\lkns\classes\{
+    AnalyticRoute,
+    Location,
+    TransportationType
+};
 
 /**
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
@@ -62,7 +64,7 @@ use mauriziocingolani\lkns\classes\TransportationType;
      * @param string $company_abbreviations A list of comma separated company abbreviations (es: AML,ANSF).
      * @param string $transportationType Possible values are BT (data for bus transportation), ST (data for sea transportation) and AT (data for both sea and bus transportation). Default value, is AT.
      * @param string $searchText (Required) The Origin Location To Search for. Can be either Location Code or Description (es: PIR).
-     * @param string $destination (Required) The destination Location To Search for. Can be either Location Code or Description. (es: AEG)
+     * @param string $destination The destination Location To Search for. Can be either Location Code or Description. (es: AEG)
      * @return TransportationType[]
      */
     public function getRoutesWithFilter(string $session, string $company_abbreviations = null, string $transportationType = null, string $searchText = null, string $destination = null) {

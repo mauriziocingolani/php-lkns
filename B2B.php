@@ -2,9 +2,18 @@
 
 namespace mauriziocingolani\lkns;
 
-use mauriziocingolani\lkns\classes\BookingResponse;
-use mauriziocingolani\lkns\classes\OptionalBookingResponse;
-use mauriziocingolani\lnks\classes\VoucherOfBooking;
+use mauriziocingolani\lkns\classes\{
+    Accommodation,
+    BillingReconciliationResponseDto,
+    BookingModificationResponse,
+    BookingResponse,
+    CancellationResponse,
+    CashierTicketResponse,
+    OptionalBookingResponse,
+    PassengerType,
+    PendingBookingDetail,
+    VoucherOfBooking
+};
 
 /**
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
@@ -236,7 +245,7 @@ class B2B extends B2CFull {
      * The response of the method, returns a list of the vehicle accommodations.
      * @param string $session
      * @param string $company_abbreviation A list of comma separated company abbreviations
-     * @return Accomodation[]
+     * @return Accommodation[]
      */
     public function getVehicleAccommodations(string $session, string $company_abbreviation = null) {
         $args = get_defined_vars();
@@ -250,7 +259,7 @@ class B2B extends B2CFull {
         $result = json_decode($result);
         $data = [];
         foreach ($result as $r) :
-            $data[] = new Accomodation($r);
+            $data[] = new Accommodation($r);
         endforeach;
         return $data;
     }

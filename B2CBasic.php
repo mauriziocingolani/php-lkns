@@ -2,11 +2,13 @@
 
 namespace mauriziocingolani\lkns;
 
-use mauriziocingolani\lkns\classes\CancellationResponse;
-use mauriziocingolani\lkns\classes\Company;
-use mauriziocingolani\lkns\classes\Country;
-use mauriziocingolani\lkns\classes\Location;
-use mauriziocingolani\lkns\classes\TransportationType;
+use mauriziocingolani\lkns\classes\{
+    CancellationResponse,
+    Company,
+    Country,
+    Location,
+    TransportationType
+};
 
 /**
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
