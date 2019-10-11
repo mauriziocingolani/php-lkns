@@ -2,13 +2,16 @@
 
 namespace mauriziocingolani\lkns;
 
-use mauriziocingolani\lkns\classes\CancellationResponse;
-use mauriziocingolani\lkns\classes\Company;
-use mauriziocingolani\lkns\classes\Country;
-use mauriziocingolani\lkns\classes\Location;
-use mauriziocingolani\lkns\classes\TransportationType;
-use mauriziocingolani\lkns\classes\TripsWithDictionary;
-use mauriziocingolani\lkns\classes\TimetableConjunctionRequest;
+use mauriziocingolani\lkns\classes\{
+    CancellationResponse,
+    Company,
+    Country,
+    ListOfTripsWithDictionaryResponse,
+    Location,
+    TransportationType,
+    TripsWithDictionary,
+    TimetableConjunctionRequest
+};
 
 /**
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
@@ -290,8 +293,8 @@ class B2CBasic {
      * @param TimetableRequest $body The criteria entity is called “Time table” request.
      * @return TripsWithDictionary
      */
-    public function dotSimpleTrips(string $session, $body) {
-        $url = $this->url . '/trips';
+    public function doSimpleTrips(string $session, $body) {
+        $url = $this->url . '/simple-trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
@@ -305,15 +308,15 @@ class B2CBasic {
      * Everything mentioned in doTrips, applies in this method, as well.
      * This method allows any type of combinations of origin & destinations and returns all available trips.
      * @param string session
-     * @param TimetableRequest $body The criteria entity is called “Time table” request.
-     * @return TripsWithDictionary
+     * @param TimetableRequest[] $body The criteria entity is called “Time table” request.
+     * @return ListOfTripsWithDictionaryResponse
      */
     public function doListOfTrips(string $session, $body) {
         $url = $this->url . '/list-of-trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
-        return new TripsWithDictionary($result);
+        return new ListOfTripsWithDictionaryResponse($result);
     }
 
     /**
