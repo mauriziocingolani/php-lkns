@@ -292,8 +292,8 @@ class B2CBasic {
      * @param TimetableRequest $body The criteria entity is called “Time table” request.
      * @return TripsWithDictionary
      */
-    public function dotSimpleTrips(string $session, $body) {
-        $url = $this->url . '/trips';
+    public function doSimpleTrips(string $session, $body) {
+        $url = $this->url . '/simple-trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
