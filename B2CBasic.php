@@ -329,7 +329,7 @@ class B2CBasic {
     * @return TripsWithDictionary
     */
     public function doTripWithConjunction(string $session, $body) {
-        $url = $this->url . '/trips-per-day';
+        $url = $this->url . '/trips-with-conjunction';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
