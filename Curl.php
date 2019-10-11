@@ -48,10 +48,10 @@ class Curl {
      */
     public function send(string $session = null, Object $post = null, array $credentials = null) {
         # setto gli headers
+        array_push($this->httpHeaders, 'Content-Type: ' . $this->contentType);
         if (isset($session)) :
             array_push($this->httpHeaders, 'Session: ' . $session);
         elseif (isset($credentials)) :
-            array_push($this->httpHeaders, 'Content-Type: ' . $this->contentType);
             $this->httpHeaders = array_merge($this->httpHeaders, $credentials);
         endif;
         # chiamata

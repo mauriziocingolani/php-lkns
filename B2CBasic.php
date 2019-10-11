@@ -7,7 +7,8 @@ use mauriziocingolani\lkns\classes\{
     Company,
     Country,
     Location,
-    TransportationType
+    TransportationType,
+    TripsWithDictionary
 };
 
 /**
