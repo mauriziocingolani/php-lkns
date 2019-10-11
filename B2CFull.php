@@ -26,65 +26,6 @@ use mauriziocingolani\lkns\classes\{
      }
 
     /**
-     * getLocationsWithFilters 
-     * The method is used to search within the locations. Search can be performed on the Location Code, the Location Description and Country Code.
-     * A full match is required for any of these fields.
-     * The http get parameter “searchText”, is used for filtering the location data and fetching precisely what the user has asked for.
-     * The http get parameter “locationType“ (referred previously), may also be used.
-     * @param string session
-     * @param string $company_abbreviations A list of comma separated company abbreviations (es: AML,ANSF).
-     * @param string $locationType Possible values are HARBOUR, GENERIC_LOCATION, BUS_STOP etc.
-     * @param string $searchText (Required) A String to search for within Location Code, Location Description or Country Code.
-     * @return Location[]
-     */
-    public function getLocationsWithFilters(string $session, string $company_abbreviations = null, string $locationType = null, string $searchText = null) {
-        $args = get_defined_vars();
-        $queryString = $this->getQueryString($args);
-        $url = $this->url . '/locations-with-filter';
-        if (!empty($queryString)) :
-            $url .= '?' . $queryString;
-        endif;
-        $curl = new Curl($url);
-        $result = $curl->send($session);
-        $result = json_decode($result);
-        $data = [];
-        foreach ($result as $l) :
-            $data[] = new Location($l);
-        endforeach;
-        return $data;
-    }
-
-    /**
-     * getRoutesWithFilter
-     * This method fetches all the possible routes from a selected Origin.
-     * The Origin is given in the Search Text parameter and can be either the Location Code or Description.
-     * The response of the method, is a list of “Transportation” entities, in JSON format.
-     * The http get parameter “searchText”, is used for filtering the routes data and fetching precisely what the user has asked for. The search is performed within all records of the results
-     * @param string session
-     * @param string $company_abbreviations A list of comma separated company abbreviations (es: AML,ANSF).
-     * @param string $transportationType Possible values are BT (data for bus transportation), ST (data for sea transportation) and AT (data for both sea and bus transportation). Default value, is AT.
-     * @param string $searchText (Required) The Origin Location To Search for. Can be either Location Code or Description (es: PIR).
-     * @param string $destination The destination Location To Search for. Can be either Location Code or Description. (es: AEG)
-     * @return TransportationType[]
-     */
-    public function getRoutesWithFilter(string $session, string $company_abbreviations = null, string $transportationType = null, string $searchText = null, string $destination = null) {
-        $args = get_defined_vars();
-        $queryString = $this->getQueryString($args);
-        $url = $this->url . '/routes-with-filter';
-        if (!empty($queryString)) :
-            $url .= '?' . $queryString;
-        endif;
-        $curl = new Curl($url);
-        $result = $curl->send($session);
-        $result = json_decode($result);
-        $data = [];
-        foreach ($result as $t) :
-            $data[] = new TransportationType($t);
-        endforeach;
-        return $data;
-    }
-
-    /**
      * getAnalyticRoutes
      * This method fetches all the possible routes for each transportation type.
      * Specifically for the bus transportation part, data fetched include only those bus operators, who support this functionality.
