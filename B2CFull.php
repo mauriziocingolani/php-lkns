@@ -91,23 +91,5 @@ use mauriziocingolani\lkns\classes\{
          $result = json_decode($result);
          return new TripsOfDayWithDictionary($result);
      }
-
-     /**
-      * doTripWithConjunction
-     * This method provides trips on combined itineraries
-     * The method returns possible alternative routes that connect two locations.
-     * The most significant parameter, is maxConjunctions, which defines the maximum allowed transtitions, in order to get from origin location, to the destination location.
-     * @param string session
-     * @param TimetableConjunctionRequest $body The criteria entity is called “Time table” request.
-     * @return TripsWithDictionary
-     */
-     public function doTripWithConjunction(string $session, $body) {
-         $url = $this->url . '/trips-per-day';
-         $curl = new Curl($url);
-         $result = $curl->send($session, $body);
-         $result = json_decode($result);
-         return new TripsOfDayWithDictionary($result);
-     }
-
      
  }

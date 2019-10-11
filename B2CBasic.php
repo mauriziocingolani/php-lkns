@@ -2,14 +2,13 @@
 
 namespace mauriziocingolani\lkns;
 
-use mauriziocingolani\lkns\classes\{
-    CancellationResponse,
-    Company,
-    Country,
-    Location,
-    TransportationType,
-    TripsWithDictionary
-};
+use mauriziocingolani\lkns\classes\CancellationResponse;
+use mauriziocingolani\lkns\classes\Company;
+use mauriziocingolani\lkns\classes\Country;
+use mauriziocingolani\lkns\classes\Location;
+use mauriziocingolani\lkns\classes\TransportationType;
+use mauriziocingolani\lkns\classes\TripsWithDictionary;
+use mauriziocingolani\lkns\classes\TimetableConjunctionRequest;
 
 /**
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
@@ -18,7 +17,6 @@ use mauriziocingolani\lkns\classes\{
  * @version 1.0.1
  */
 class B2CBasic {
-
     private $url;
 
     /* Metodi */
@@ -92,16 +90,16 @@ class B2CBasic {
         $result = json_decode($result);
         if (is_array($result)) :
             $data = [];
-            foreach ($result as $l) :
+        foreach ($result as $l) :
                 $data[] = new Location($l);
-            endforeach;
-            return $data;
+        endforeach;
+        return $data;
         endif;
         return false;
     }
 
     /**
-     * getLocationsWithFilters 
+     * getLocationsWithFilters
      * The method is used to search within the locations. Search can be performed on the Location Code, the Location Description and Country Code.
      * A full match is required for any of these fields.
      * The http get parameter “searchText”, is used for filtering the location data and fetching precisely what the user has asked for.
@@ -232,10 +230,10 @@ class B2CBasic {
         $result = json_decode($result);
         if (is_array($result)) :
             $data = [];
-            foreach ($result as $r) :
+        foreach ($result as $r) :
                 $data[] = new Company($r);
-            endforeach;
-            return $data;
+        endforeach;
+        return $data;
         endif;
         return false;
     }
@@ -253,10 +251,10 @@ class B2CBasic {
         $result = json_decode($result);
         if (is_array($result)) :
             $data = [];
-            foreach ($result as $r) :
+        foreach ($result as $r) :
                 $data[] = new Country($r);
-            endforeach;
-            return $data;
+        endforeach;
+        return $data;
         endif;
         return false;
     }
@@ -319,6 +317,23 @@ class B2CBasic {
     }
 
     /**
+     * doTripWithConjunction
+    * This method provides trips on combined itineraries
+    * The method returns possible alternative routes that connect two locations.
+    * The most significant parameter, is maxConjunctions, which defines the maximum allowed transtitions, in order to get from origin location, to the destination location.
+    * @param string session
+    * @param TimetableConjunctionRequest $body The criteria entity is called “Time table” request.
+    * @return TripsWithDictionary
+    */
+    public function doTripWithConjunction(string $session, $body) {
+        $url = $this->url . '/trips-per-day';
+        $curl = new Curl($url);
+        $result = $curl->send($session, $body);
+        $result = json_decode($result);
+        return new TripsOfDayWithDictionary($result);
+    }
+
+    /**
      * doPricing
      * This method provides pricing for a specific quote. The criteria entity is called “Pricing request”.
      * @param string session
@@ -366,5 +381,4 @@ class B2CBasic {
         $result = json_decode($result);
         return new ConfirmPaymentResponse($result);
     }
-
 }
