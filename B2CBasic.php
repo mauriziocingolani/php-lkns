@@ -333,7 +333,7 @@ class B2CBasic {
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
-        return new TripsOfDayWithDictionary($result);
+        return new TripsWithDictionary($result);
     }
 
     /**
