@@ -42,11 +42,11 @@ class Curl {
 
     /**
      * @param string|null $session
-     * @param Object|null $post
+     * @param $post
      * @param array|null $credentials
      * @return bool|string
      */
-    public function send(string $session = null, Object $post = null, array $credentials = null) {
+    public function send(string $session = null, $post = null, array $credentials = null) {
         # setto gli headers
         array_push($this->httpHeaders, 'Content-Type: ' . $this->contentType);
         if (isset($session)) :

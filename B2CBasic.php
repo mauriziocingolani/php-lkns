@@ -6,6 +6,7 @@ use mauriziocingolani\lkns\classes\{
     CancellationResponse,
     Company,
     Country,
+    ListOfTripsWithDictionaryResponse,
     Location,
     TransportationType,
     TripsWithDictionary
