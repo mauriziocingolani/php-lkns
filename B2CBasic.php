@@ -307,15 +307,15 @@ class B2CBasic {
      * Everything mentioned in doTrips, applies in this method, as well.
      * This method allows any type of combinations of origin & destinations and returns all available trips.
      * @param string session
-     * @param TimetableRequest $body The criteria entity is called “Time table” request.
-     * @return TripsWithDictionary
+     * @param TimetableRequest[] $body The criteria entity is called “Time table” request.
+     * @return ListOfTripsWithDictionaryResponse
      */
     public function doListOfTrips(string $session, $body) {
         $url = $this->url . '/list-of-trips';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
-        return new TripsWithDictionary($result);
+        return new ListOfTripsWithDictionaryResponse($result);
     }
 
     /**
