@@ -3,11 +3,14 @@
 namespace mauriziocingolani\lkns;
 
 use mauriziocingolani\lkns\classes\{
+    BookingResponse,
     CancellationResponse,
     Company,
+    ConfirmPaymentResponse,
     Country,
     ListOfTripsWithDictionaryResponse,
     Location,
+    PricingResponse,
     TransportationType,
     TripsWithDictionary,
     TimetableConjunctionRequest
