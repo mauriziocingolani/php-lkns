@@ -64,8 +64,10 @@ class Curl {
         curl_setopt($curl, CURLOPT_HTTPHEADER, $this->httpHeaders);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         if (isset($post)) :
-            curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($post));
+            $post = json_encode($post);
+            $post = preg_replace('/,\s*"[^"]+":null|"[^"]+":null,?/', '', $post);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
         endif;
         $result = curl_exec($curl);
         $err = curl_error($curl);

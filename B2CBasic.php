@@ -360,7 +360,7 @@ class B2CBasic {
      * @return BookingResponse
      */
     public function doBooking(string $session, $body) {
-        $url = $this->url . '/bookig';
+        $url = $this->url . '/booking';
         $curl = new Curl($url);
         $result = $curl->send($session, $body);
         $result = json_decode($result);
