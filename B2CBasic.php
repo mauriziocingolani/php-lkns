@@ -4,6 +4,7 @@ namespace mauriziocingolani\lkns;
 
 use mauriziocingolani\lkns\classes\{
     BookingResponse,
+    BookingIdentifierResponse,
     CancellationResponse,
     Company,
     ConfirmPaymentResponse,
@@ -368,6 +369,22 @@ class B2CBasic {
         $result = $curl->send($session, $body);
         $result = json_decode($result);
         return new BookingResponse($result);
+    }
+
+     /**
+     * doBookingIdentifier
+     * This method books a specific quote. The criteria entity is called “Booking request”.
+     * The structure of the entity can be found on the table, below.
+     * @param string session
+     * @param BookingRequest $body  The criteria entity is called “Booking request”.
+     * @return BookingIdentifierResponse
+     */
+    public function doBookingIdentifier(string $session, $body) {
+        $url = $this->url . '/booking-identifier';
+        $curl = new Curl($url);
+        $result = $curl->send($session, $body);
+        $result = json_decode($result);
+        return new BookingIdentifierResponse($result);
     }
 
     /**
