@@ -81,7 +81,7 @@ class B2CBasic {
      * @param array $params
      * @return array
      */
-    private function _getCredentialsArray(array $params) {
+    protected function _getCredentialsArray(array $params) {
         return [
             'agency-code:' . $params['agencyCode'],
             'agency-user-name:' . $params['agencyUserName'],
@@ -112,7 +112,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, null, $sessionOrParams);
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         if (is_array($result)) :
@@ -148,7 +148,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, null, $sessionOrParams);
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         $data = [];
@@ -178,7 +178,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, null, $sessionOrParams);
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         $data = [];
@@ -212,7 +212,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, null, $sessionOrParams);
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         $data = [];
@@ -237,7 +237,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, null, $sessionOrParams);
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new CancellationResponse($result);
@@ -258,7 +258,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, null, $sessionOrParams);
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return is_array($result) ? $result : false;
@@ -276,7 +276,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, null, $sessionOrParams);
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         if (is_array($result)) :
@@ -301,7 +301,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, null, $sessionOrParams);
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         if (is_array($result)) :
@@ -334,7 +334,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, $body, $sessionOrParams);
+            $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new TripsWithDictionary($result);
@@ -355,7 +355,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, $body, $sessionOrParams);
+            $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new TripsWithDictionary($result);
@@ -377,7 +377,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, $body, $sessionOrParams);
+            $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new ListOfTripsWithDictionaryResponse($result);
@@ -398,7 +398,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, $body, $sessionOrParams);
+            $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new TripsWithDictionary($result);
@@ -417,7 +417,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, $body, $sessionOrParams);
+            $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new PricingResponse($result);
@@ -437,7 +437,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, $body, $sessionOrParams);
+            $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new BookingResponse($result);
@@ -457,7 +457,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, $body, $sessionOrParams);
+            $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new BookingIdentifierResponse($result);
@@ -479,7 +479,7 @@ class B2CBasic {
         if (is_string($sessionOrParams)) :
             $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
-            $result = $curl->send(null, $body, $sessionOrParams);
+            $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
         return new ConfirmPaymentResponse($result);
