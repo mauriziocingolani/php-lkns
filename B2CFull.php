@@ -5,7 +5,8 @@ namespace mauriziocingolani\lkns;
 use mauriziocingolani\lkns\classes\{
     AnalyticRoute,
     Location,
-    TransportationType
+    TransportationType,
+    TripsOfDayWithDictionary
 };
 
 /**
