@@ -46,7 +46,7 @@ class B2CBasic {
         return http_build_query($args);
     }
 
-    // CHIAMATE IN GET
+    // GET
 
     /**
      * getSession
@@ -314,7 +314,7 @@ class B2CBasic {
         return false;
     }
 
-    // CHIAMATE IN POST
+    // POST
 
     /**
      * doTrips
