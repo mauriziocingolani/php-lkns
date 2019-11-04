@@ -110,7 +110,7 @@ class B2CBasic {
             $url .= '?' . $queryString;
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session);
+            $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, null, $sessionOrParams);
         endif;
@@ -146,7 +146,7 @@ class B2CBasic {
         endif;
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session);
+            $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, null, $sessionOrParams);
         endif;
@@ -176,7 +176,7 @@ class B2CBasic {
         endif;
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session);
+            $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, null, $sessionOrParams);
         endif;
@@ -210,7 +210,7 @@ class B2CBasic {
         endif;
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session);
+            $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, null, $sessionOrParams);
         endif;
@@ -235,7 +235,7 @@ class B2CBasic {
         $url = $this->url . '/cancellation' . '/' . $crs_reservation_id;
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session);
+            $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, null, $sessionOrParams);
         endif;
@@ -256,7 +256,7 @@ class B2CBasic {
         $url = $this->url . '/financial-data' . '/' . $company_abbreviation;
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session);
+            $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, null, $sessionOrParams);
         endif;
@@ -274,7 +274,7 @@ class B2CBasic {
         $url = $this->url . '/companies';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session);
+            $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, null, $sessionOrParams);
         endif;
@@ -299,7 +299,7 @@ class B2CBasic {
         $url = $this->url . '/countries';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session);
+            $result = $curl->send($sessionOrParams);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, null, $sessionOrParams);
         endif;
@@ -332,7 +332,7 @@ class B2CBasic {
         $url = $this->url . '/trips';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session, $body);
+            $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $sessionOrParams);
         endif;
@@ -353,7 +353,7 @@ class B2CBasic {
         $url = $this->url . '/simple-trips';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session, $body);
+            $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $sessionOrParams);
         endif;
@@ -375,7 +375,7 @@ class B2CBasic {
         $url = $this->url . '/list-of-trips';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session, $body);
+            $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $sessionOrParams);
         endif;
@@ -396,7 +396,7 @@ class B2CBasic {
         $url = $this->url . '/trips-with-conjunction';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session, $body);
+            $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $sessionOrParams);
         endif;
@@ -415,7 +415,7 @@ class B2CBasic {
         $url = $this->url . '/pricing';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session, $body);
+            $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $sessionOrParams);
         endif;
@@ -435,7 +435,7 @@ class B2CBasic {
         $url = $this->url . '/booking';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session, $body);
+            $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $sessionOrParams);
         endif;
@@ -455,7 +455,7 @@ class B2CBasic {
         $url = $this->url . '/booking-identifier';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session, $body);
+            $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $sessionOrParams);
         endif;
@@ -477,7 +477,7 @@ class B2CBasic {
         $url = $this->url . '/confirm-payment';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
-            $result = $curl->send($session, $body);
+            $result = $curl->send($sessionOrParams, $body);
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $sessionOrParams);
         endif;
