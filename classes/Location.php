@@ -24,7 +24,7 @@ class Location {
     public $locationType;
     public $latitude;
     public $longitude;
-    public $locationLanguages;
+    public $locationLanguages = [];
     public $areas = [];
 
     /* Metodi */

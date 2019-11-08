@@ -23,12 +23,12 @@ class PassengerType {
     public $description;
     public $minAge;
     public $maxAge;
-    public $accomodations;
-    public $discounts;
+    public $accomodations = [];
+    public $discounts = [];
 
     /* Metodi */
 
-    public function __construct($params) {
+ public function __construct($params) {
         foreach ($params as $name => $value) {
             if ($name == 'accomodations') :
                 foreach ($value as $acc) :
