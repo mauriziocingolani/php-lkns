@@ -35,17 +35,26 @@ class CompanyDictionary {
             elseif ($name == 'discounts') :
                 $this->discounts = new DiscountDictionary($value);
             elseif ($name == 'fareCodes') :
-                foreach ($value as $fc) :
-                    $this->fareCodes[] = new Fare($fc);
+                $fareCodes = [];
+                foreach ($value as $key => $t) :
+                    $fareCodes[$key] = new Fare($t);
                 endforeach;
+                $fareCodes = (object)$fareCodes;
+                $this->fareCodes = $fareCodes;
             elseif ($name == 'passengerTypes') :
-                foreach ($value as $pt) :
-                    $this->passengerTypes[] = new PassengerType($pt);
+                $passengerTypes = [];
+                foreach ($value as $key => $t) :
+                    $passengerTypes[$key] = new PassengerType($t);
                 endforeach;
+                $passengerTypes = (object)$passengerTypes;
+                $this->passengerTypes = $passengerTypes;
             elseif ($name == 'vessels') :
-                foreach ($value as $v) :
-                    $this->vessels[] = new VesselDictionary($v);
+                $vessels = [];
+                foreach ($value as $key => $t) :
+                    $vessels[$key] = new VesselDictionary($t);
                 endforeach;
+                $vessels = (object)$vessels;
+                $this->vessels = $vessels;
             else :
                 $this->$name = $value;
             endif;

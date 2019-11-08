@@ -33,13 +33,19 @@ class TripsWithDictionary {
                     $this->trips[] = new Trip($t);
                 endforeach;
             elseif ($name == 'locations') :
-                foreach ($value as $l) :
-                    $this->locations[] = new Location($l);
+                $locations = [];
+                foreach ($value as $key => $t) :
+                    $locations[$key] = new Location($t);
                 endforeach;
+                $locations = (object)$locations;
+                $this->locations = $locations;
             elseif ($name == 'companies') :
-                foreach ($value as $cd) :
-                    $this->companies[] = new CompanyDictionary($cd);
+                $companies = [];
+                foreach ($value as $key => $t) :
+                    $companies[$key] = new CompanyDictionary($t);
                 endforeach;
+                $companies = (object)$companies;
+                $this->companies = $companies;
             else :
                 $this->$name = $value;
             endif;

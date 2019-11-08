@@ -21,7 +21,7 @@ use mauriziocingolani\lkns\classes\{
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
  * @author Paolo Calvaresi <paolo.calvaresi.v@gmail.com>
  * @author Michele Domesi <m.domesi@hotmail.it>
- * @version 1.0.1
+ * @version 1.0.2
  */
 class B2CBasic {
 
@@ -151,11 +151,14 @@ class B2CBasic {
             $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
-        $data = [];
-        foreach ($result as $l) :
-            $data[] = new Location($l);
-        endforeach;
-        return $data;
+        if (count($result) > 0) :
+            $data = [];
+            foreach ($result as $l) :
+                $data[] = new Location($l);
+            endforeach;
+            return $data;
+        endif;
+        return false;
     }
 
     /**
@@ -181,11 +184,14 @@ class B2CBasic {
             $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
-        $data = [];
-        foreach ($result as $t) :
-            $data[] = new TransportationType($t);
-        endforeach;
-        return $data;
+        if (!is_null($result)) :
+            $data = [];
+            foreach ($result as $t) :
+                $data[] = new TransportationType($t);
+            endforeach;
+            return $data;
+        endif;
+        return false;
     }
 
     /**
@@ -215,11 +221,14 @@ class B2CBasic {
             $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
-        $data = [];
-        foreach ($result as $t) :
-            $data[] = new TransportationType($t);
-        endforeach;
-        return $data;
+        if (!is_null($result)) :
+            $data = [];
+            foreach ($result as $t) :
+                $data[] = new TransportationType($t);
+            endforeach;
+            return $data;
+        endif;
+        return false;
     }
 
     /**
@@ -328,7 +337,7 @@ class B2CBasic {
      * @param TimetableRequest $body The criteria entity is called “Time table” request.
      * @return TripsWithDictionary
      */
-    public function doTrips($sessionOrParams) {
+    public function doTrips($sessionOrParams, $body) {
         $url = $this->url . '/trips';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :

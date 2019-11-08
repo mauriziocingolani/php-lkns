@@ -21,13 +21,19 @@ class AccomodationDictionary {
     public function __construct($params) {
         foreach ($params as $name => $value) {
             if ($name == 'passengers') :
-                foreach ($value as $p) :
-                    $this->passengers[] = new Accommodation($p);
+                $passengers = [];
+                foreach ($value as $key => $t) :
+                    $passengers[$key] = new Accommodation($t);
                 endforeach;
+                $passengers = (object)$passengers;
+                $this->passengers = $passengers;
             elseif ($name == 'vehicles') :
-                foreach ($value as $v) :
-                    $this->vehicles[] = new Accommodation($v);
+                $vehicles = [];
+                foreach ($value as $key => $t) :
+                    $vehicles[$key] = new Accommodation($t);
                 endforeach;
+                $vehicles = (object)$vehicles;
+                $this->vehicles = $vehicles;
             endif;
         }
     }

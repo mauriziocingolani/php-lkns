@@ -16,16 +16,16 @@ use mauriziocingolani\lkns\classes\{
  * @author Michele Domesi <m.domesi@hotmail.it>
  * @version 1.0.0
  */
- class B2CFull extends B2CBasic {
+class B2CFull extends B2CBasic {
 
-     protected $url;
+    protected $url;
 
-     /* Metodi */
+    /* Metodi */
 
-     public function __construct($url) {
-         parent::__construct(...func_get_args());
-         $this->url = $url;
-     }
+    public function __construct($url) {
+        parent::__construct(...func_get_args());
+        $this->url = $url;
+    }
 
     // GET
 
@@ -71,7 +71,7 @@ use mauriziocingolani\lkns\classes\{
      * @param RouteFrequencyRequest $body (Required) The criteria entity is called “Route frequency request”
      * @return RouteFrequency[]
      */
-     public function doRouteFrequency($sessionOrParams, $body) {
+    public function doRouteFrequency($sessionOrParams, $body) {
         $url = $this->url . '/route-frequency';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
@@ -80,14 +80,17 @@ use mauriziocingolani\lkns\classes\{
             $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
         $result = json_decode($result);
-        $data = [];
-        foreach ($result as $r) :
-            $data[] = new RouteFrequency($r);
-        endforeach;
-        return $data;
-     }
+        if (!is_null($result)) :
+            $data = [];
+            foreach ($result as $r) :
+                $data[] = new RouteFrequency($r);
+            endforeach;
+            return $data;
+        endif;
+        return false;
+    }
 
-     /**
+    /**
      * doTripsPerDay
      * This method provides with timetable data grouped by day.
      * Field “daysToSearch” stores the number of days to search prior and after “departure Date”.
@@ -97,7 +100,7 @@ use mauriziocingolani\lkns\classes\{
      * @param TimetablePerDayRequest $body The criteria entity is called “Time table” request.
      * @return TripsOfDayWithDictionary
      */
-     public function doTripsPerDay($sessionOrParams, $body) {
+    public function doTripsPerDay($sessionOrParams, $body) {
         $url = $this->url . '/trips-per-day';
         $curl = new Curl($url);
         if (is_string($sessionOrParams)) :
@@ -107,6 +110,6 @@ use mauriziocingolani\lkns\classes\{
         endif;
         $result = json_decode($result);
         return new TripsOfDayWithDictionary($result);
-     }
-     
- }
+    }
+
+}
