@@ -20,7 +20,7 @@ class AccommodationRequest {
     public $accommodationRequestType;
     public $quantity;
     public $bedType;
-    public $accommodationRequestAnalysises;
+    public $accommodationRequestAnalysises = [];
 
     /* Metodi */
 

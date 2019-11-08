@@ -34,9 +34,9 @@ class AccommodationRequestAnalysis {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'passengerData') :
+            if ($name == 'passengerData' && isset($value)) :
                 $this->passengerData = new PassengerData($value);
-            elseif ($name == 'vehicleData') :
+            elseif ($name == 'vehicleData' && isset($value)) :
                 $this->vehicleData = new VehicleData($value);
             else :
                 $this->$name = $value;
