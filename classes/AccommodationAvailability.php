@@ -34,9 +34,9 @@ class AccommodationAvailability {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'accommodation') :
+            if ($name == 'accommodation' && isset($value)) :
                 $this->accommodation = new Accommodation($value);
-            elseif ($name == 'passengerType') :
+            elseif ($name == 'passengerType'  && isset($value)) :
                 $this->passengerType = new PassengerType($value);
             else :
                 $this->$name = $value;
