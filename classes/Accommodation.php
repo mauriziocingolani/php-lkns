@@ -46,7 +46,7 @@ class Accommodation {
     public $bed;
     public $exclusiveUse;
     public $group;
-    public $images;
+    public $images = [];
 
     /* Metodi */
 
