@@ -27,7 +27,7 @@ class Price {
     public $vat;
     public $description;
     public $fareIdOrCode;
-    public $additionFees;
+    public $additionFees = [];
     public $accommodationNumber;
     public $priceAccommodationType;
     public $itemIdOrCode;

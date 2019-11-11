@@ -70,47 +70,47 @@ class Trip {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'vessel') :
+            if ($name == 'vessel' && isset($value)) :
                 $this->vessel = new Vessel($value);
-            elseif (in_Array($name, ['origin', 'destination'])) :
+            elseif (in_Array($name, ['origin', 'destination']) && isset($value)) :
                 $this->$name = new Location($value);;
-            elseif ($name == 'accommodationAvailabilities') :
+            elseif ($name == 'accommodationAvailabilities' && isset($value)) :
                 foreach ($value as $accA) :
                     $this->accommodationAvailabilities[] = new AccommodationAvailability($accA);
                 endforeach;
-            elseif ($name == 'intermediateStops') :
+            elseif ($name == 'intermediateStops' && isset($value)) :
                 foreach ($value as $int) :
                     $this->intermediateStops[] = new IntermediateStop($int);
                 endforeach;
-            elseif ($name == 'additionalServices') :
+            elseif ($name == 'additionalServices' && isset($value)) :
                 foreach ($value as $add) :
                     $this->additionalServices[] = new AdditionalService($add);
                 endforeach;
-            elseif ($name == 'accommodationRequests') :
+            elseif ($name == 'accommodationRequests' && isset($value)) :
                 foreach ($value as $accR) :
                     $this->accommodationRequests[] = new AccommodationRequest($accR);
                 endforeach;
-            elseif ($name == 'prices') :
+            elseif ($name == 'prices' && isset($value)) :
                 foreach ($value as $p) :
                     $this->prices[] = new Price($p);
                 endforeach;
-            elseif ($name == 'discountPrices') :
+            elseif ($name == 'discountPrices' && isset($value)) :
                 foreach ($value as $dp) :
                     $this->discountPrices[] = new Price($dp);
                 endforeach;
-            elseif ($name == 'tickets') :
+            elseif ($name == 'tickets' && isset($value)) :
                 foreach ($value as $t) :
                     $this->tickets[] = new Ticket($t);
                 endforeach;
-            elseif ($name == 'passengers') :
+            elseif ($name == 'passengers' && isset($value)) :
                 foreach ($value as $pass) :
                     $this->passengers[] = new Passenger($pass);
                 endforeach;
-            elseif ($name == 'vehicles') :
+            elseif ($name == 'vehicles' && isset($value)) :
                 foreach ($value as $v) :
                     $this->vehicles[] = new Vehicle($v);
                 endforeach;
-            elseif ($name == 'bookingValidation') :
+            elseif ($name == 'bookingValidation' && isset($value)) :
                     $this->bookingValidation = new BookingValidation($value);
             else :
                 $this->$name = $value;

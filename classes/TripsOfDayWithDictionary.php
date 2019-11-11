@@ -19,14 +19,14 @@ class TripsOfDayWithDictionary {
     public $code;
     public $message;
     public $severeError;
-    public $trips;
+    public $trips = [];
     public $names;
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'trips') :
+            if ($name == 'trips' && isset($value)) :
                 foreach ($value as $t) :
                     $this->trips[] = new TripsOfDay($t);
                 endforeach;

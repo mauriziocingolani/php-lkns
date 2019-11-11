@@ -14,13 +14,13 @@ namespace mauriziocingolani\lkns\classes;
 class TripsOfDay {
 
     public $departureDate;
-    public $trips;
+    public $trips = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'trips') :
+            if ($name == 'trips' && isset($value)) :
                 foreach ($value as $t) :
                     $this->trips[] = new Trip($t);
                 endforeach;

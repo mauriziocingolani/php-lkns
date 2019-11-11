@@ -20,26 +20,26 @@ class TripsWithDictionary {
     public $code;
     public $message;
     public $severeError;
-    public $trips;
-    public $locations;
-    public $companies;
+    public $trips = [];
+    public $locations = [];
+    public $companies = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'trips') :
+            if ($name == 'trips' && isset($value)) :
                 foreach ($value as $t) :
                     $this->trips[] = new Trip($t);
                 endforeach;
-            elseif ($name == 'locations') :
+            elseif ($name == 'locations' && isset($value)) :
                 $locations = [];
                 foreach ($value as $key => $t) :
                     $locations[$key] = new Location($t);
                 endforeach;
                 $locations = (object)$locations;
                 $this->locations = $locations;
-            elseif ($name == 'companies') :
+            elseif ($name == 'companies' && isset($value)) :
                 $companies = [];
                 foreach ($value as $key => $t) :
                     $companies[$key] = new CompanyDictionary($t);

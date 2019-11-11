@@ -18,13 +18,13 @@ class ListOfTripsWithDictionaryResponse {
     public $code;
     public $message;
     public $severeError;
-    public $tripsWithDictionary;
+    public $tripsWithDictionary = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'tripsWithDictionary') :
+            if ($name == 'tripsWithDictionary' && isset($value)) :
                 foreach ($value as $twd) :
                     $this->tripsWithDictionary[] = new TripsWithDictionary($twd);
                 endforeach;

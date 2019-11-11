@@ -5,9 +5,6 @@ namespace mauriziocingolani\lkns\classes;
 /**
  * Description of PaymentMethodResponse
  *
- * @property string $code
- * @property string $message
- * @property boolean $severeError If an error is returned, it shows whether is severe or not.
  * @property PaymentMethodResponsePerCompany[] $paymentMethodResponsePerCompanies
  * 
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
@@ -15,16 +12,13 @@ namespace mauriziocingolani\lkns\classes;
  */
 class PaymentMethodResponse {
 
-    public $code;
-    public $message;
-    public $severeError;
-    public $paymentMethodResponsePerCompanies;
+    public $paymentMethodResponsePerCompanies = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if($name == 'paymentMethodResponsePerCompanies') :
+            if($name == 'paymentMethodResponsePerCompanies' && isset($value)) :
                 foreach($value as $pmrpc):
                     $this->paymentMethodResponsePerCompanies[] = new PaymentMethodResponsePerCompany($pmrpc);
                 endforeach;

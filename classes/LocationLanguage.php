@@ -29,9 +29,9 @@ class LocationLanguage {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'location') :
+            if ($name == 'location' && isset($value)) :
                 $this->location = new Location($value); 
-            elseif ($name == 'language') :
+            elseif ($name == 'language' && isset($value)) :
                 $this->location = new Language($value); 
             else :
                 $this->$name = $value;

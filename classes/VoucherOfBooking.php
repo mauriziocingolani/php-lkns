@@ -18,7 +18,7 @@ class VoucherOfBooking {
     public $code;
     public $message;
     public $severeError;
-    public $voucher;
+    public $voucher = [];
 
     /* Metodi */
 

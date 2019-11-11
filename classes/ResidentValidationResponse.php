@@ -20,15 +20,15 @@ class ResidentValidationResponse {
     public $message;
     public $severeError;
     public $company;
-    public $passengerData;
+    public $passengerData = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'company') :
+            if ($name == 'company' && isset($value)) :
                 $this->company = new Company($value);
-            elseif ($name == 'passengerData') :
+            elseif ($name == 'passengerData' && isset($value)) :
                 foreach ($value as $pd) :
                     $this->passengerData[] = new PassengerData($pd);
                 endforeach;

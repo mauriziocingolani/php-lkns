@@ -22,7 +22,7 @@ class IssueOptionalBookingRequest {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'bookingPaymentMethods') :
+            if ($name == 'bookingPaymentMethods' && isset($value)) :
                 foreach ($value as $bpm) :
                     $this->bookingPaymentMethods[] = new BookingPaymentMethodCompany($bpm);
                 endforeach;

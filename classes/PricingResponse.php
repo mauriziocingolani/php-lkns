@@ -21,14 +21,14 @@ class PricingResponse {
     public $message;
     public $severeError;
     public $fareIdOrCode;
-    public $trips;
+    public $trips = [];
     public $bookingIdentifier;
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'trips') :
+            if ($name == 'trips' && isset($value)) :
                 foreach ($value as $t) :
                     $this->trips[] = new Trip($t);
                 endforeach;

@@ -22,7 +22,23 @@ class VesselDictionary {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            $this->$name = $value;
+            if ($name == 'details' && isset($value)) :
+                $details = [];
+                foreach ($value as $key => $t) :
+                    $details[$key] = $t;
+                endforeach;
+                $details = (object)$details;
+                $this->details = $details;
+            elseif ($name == 'accommodationFacilities' && isset($value)) :
+                $accommodationFacilities = [];
+                foreach ($value as $key => $t) :
+                    $accommodationFacilities[$key] = $t;
+                endforeach;
+                $accommodationFacilities = (object)$accommodationFacilities;
+                $this->accommodationFacilities = $accommodationFacilities;
+            else:
+                $this->$name = $value;
+            endif;
         }
     }
 

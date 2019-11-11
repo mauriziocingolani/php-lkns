@@ -18,15 +18,15 @@ class RouteFrequencyRequest {
     public $fetchCompanies;
     public $origin;
     public $destination;
-    public $companies;
+    public $companies = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if (in_Array($name, ['origin', 'destination'])) :
+            if (in_Array($name, ['origin', 'destination']) && isset($value)) :
                 $this->$name = new Location($value);
-            elseif ($name == 'companies') :
+            elseif ($name == 'companies' && isset($value)) :
                 foreach ($value as $c) :
                     $this->companies[] = new Company($c);
                 endforeach;

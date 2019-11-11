@@ -14,13 +14,13 @@ namespace mauriziocingolani\lkns\classes;
 class TransportationType {
 
     public $type;
-    public $routes;
+    public $routes = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'routes') :
+            if ($name == 'routes' && isset($value)) :
                 foreach ($value as $r) :
                     $this->routes[] = new Route($r);
                 endforeach;

@@ -54,13 +54,13 @@ class Passenger {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if($name == 'discount') :
+            if($name == 'discount' && isset($value)) :
                 $this->discount = new Discount($value);
-            elseif($name == 'price') :
+            elseif($name == 'price' && isset($value)) :
                 $this->price = new Price($value);
-            elseif($name == 'accommodation') :
+            elseif($name == 'accommodation' && isset($value)) :
                 $this->accommodation = new Accommodation($value);
-            elseif($name == 'ticket') :
+            elseif($name == 'ticket' && isset($value)) :
                 $this->ticket = new Ticket($value);
             else:
                 $this->$name = $value;

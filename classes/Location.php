@@ -31,15 +31,15 @@ class Location {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'country') :
+            if ($name == 'country' && isset($value)) :
                 $this->country = new Country($value);
-            elseif (in_Array($name, ['latitude', 'longitude'])) :
+            elseif (in_Array($name, ['latitude', 'longitude']) && isset($value)) :
                 $this->$name = (float) $value;
-            elseif ($name == 'locationLanguages') :
+            elseif ($name == 'locationLanguages' && isset($value)) :
                 foreach ($value as $ll) :
                     $this->locationLanguages[] = new LocationLanguage($ll);
                 endforeach;    
-            elseif ($name == 'areas') :
+            elseif ($name == 'areas' && isset($value)) :
                 foreach ($value as $a) :
                     $this->areas[] = new Area($a);
                 endforeach;

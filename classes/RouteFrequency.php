@@ -14,13 +14,13 @@ namespace mauriziocingolani\lkns\classes;
 class RouteFrequency {
 
     public $departureDate;
-    public $companies;
+    public $companies = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'companies') :
+            if ($name == 'companies' && isset($value)) :
                 foreach ($value as $c) :
                     $this->companies[] = new Company($c);
                 endforeach;

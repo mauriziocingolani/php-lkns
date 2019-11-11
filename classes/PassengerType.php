@@ -30,11 +30,11 @@ class PassengerType {
 
  public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'accomodations') :
+            if ($name == 'accomodations' && isset($value)) :
                 foreach ($value as $acc) :
                     $this->accomodations[] = new Accommodation($acc);
                 endforeach;
-            elseif ($name == 'discounts') :
+            elseif ($name == 'discounts' && isset($value)) :
                 foreach ($value as $dis) :
                     $this->discounts[] = new Discount($dis);
                 endforeach;

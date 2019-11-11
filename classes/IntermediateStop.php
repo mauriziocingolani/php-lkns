@@ -32,7 +32,7 @@ class IntermediateStop {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if($name == 'vessel') :
+            if($name == 'vessel' && isset($value)) :
                 $this->vessel = new Vessel($value);
             else:
                 $this->$name = $value;

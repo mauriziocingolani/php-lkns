@@ -12,16 +12,18 @@ namespace mauriziocingolani\lkns\classes;
  */
 class PaymentMethodRequest {
 
-    public $paymentMethodRequestPerCompanies;
+    public $paymentMethodRequestPerCompanies = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if($name == 'paymentMethodRequestPerCompanies') :
+            if($name == 'paymentMethodRequestPerCompanies' && isset($value)) :
                 foreach($value as $pmrpc):
                     $this->paymentMethodRequestPerCompanies[] = new PaymentMethodRequestPerCompany($pmrpc);
                 endforeach;
+            else :
+                $this->$name = $value;
             endif;
         }
     }

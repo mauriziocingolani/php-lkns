@@ -24,7 +24,7 @@ class PendingBookingDetail {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'company') :
+            if ($name == 'company' && isset($value)) :
                 $this->company = new Company($value);
             else :
                 $this->$name = $value;

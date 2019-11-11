@@ -11,7 +11,7 @@ namespace mauriziocingolani\lkns\classes;
  * @property integer $vat
  * @property string $description
  * @property string $fareIdOrCode
- * @property integer $additionFees
+ * @property integer[] $additionFees
  * @property string $accommodationNumber Optional. The accommodation number. Used in pricing method, for ForthCRS’ native ferry companies when the request has keepSeats value set to true.
  * @property string $priceAccommodationType Refers to the type of the item. Possible values are PASSENGER, VEHICLE, EXTRA_SERVICE.
  * @property string $itemIdOrCode Optional. The item’s id or code for matching the request’s data. Used when displaying analytical pricing.
@@ -32,7 +32,7 @@ class Ticket {
     public $vat;
     public $description;
     public $fareIdOrCode;
-    public $additionFees;
+    public $additionFees = [];
     public $accommodationNumber;
     public $priceAccommodationType;
     public $itemIdOrCode;

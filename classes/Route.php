@@ -14,18 +14,20 @@ namespace mauriziocingolani\lkns\classes;
 class Route {
 
     public $origin;
-    public $destinations;
+    public $destinations = [];
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'origin') :
+            if ($name == 'origin' && isset($value)) :
                 $this->origin = new Location($value);
-            elseif ($name == 'destinations') :
+            elseif ($name == 'destinations' && isset($value)) :
                 foreach ($value as $d) :
                     $this->destinations[] = new Location($d);
                 endforeach;
+            else :
+                $this->$name = $value;
             endif;
         }
     }

@@ -38,7 +38,7 @@ class VehicleData {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'ticket') :
+            if ($name == 'ticket' && isset($value)) :
                 $this->ticket = new Ticket($value);
             else :
                 $this->$name = $value;
