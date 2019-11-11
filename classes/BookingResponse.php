@@ -32,7 +32,7 @@ class BookingResponse {
     public $fareIdOrCode;
     public $paymentType;
     public $leader;
-    public $trips;
+    public $trips = [];
     public $user;
     public $agencyService;
     public $ticketed;
@@ -46,11 +46,11 @@ class BookingResponse {
                 foreach($value as $trip):
                     $this->trips[] = new Trip($trip);
                 endforeach;
-            elseif($name == 'leader'):
+            elseif($name == 'leader'  && isset($value)):
                 $this->leader = new BookingLeader($value);
-            elseif($name == 'user'):
+            elseif($name == 'user'  && isset($value)):
                 $this->user = new User($value);
-            elseif($name == 'agencyService'):
+            elseif($name == 'agencyService'  && isset($value)):
                 $this->agencyService = new AgencyService($value);
             else:
                 $this->$name = $value;

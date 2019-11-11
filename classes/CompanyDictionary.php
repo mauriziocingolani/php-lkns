@@ -30,25 +30,25 @@ class CompanyDictionary {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'accommodations') :
+            if ($name == 'accommodations' && isset($value)) :
                 $this->accommodations = new AccomodationDictionary($value);
-            elseif ($name == 'discounts') :
+            elseif ($name == 'discounts' && isset($value)) :
                 $this->discounts = new DiscountDictionary($value);
-            elseif ($name == 'fareCodes') :
+            elseif ($name == 'fareCodes' && isset($value)) :
                 $fareCodes = [];
                 foreach ($value as $key => $t) :
                     $fareCodes[$key] = new Fare($t);
                 endforeach;
                 $fareCodes = (object)$fareCodes;
                 $this->fareCodes = $fareCodes;
-            elseif ($name == 'passengerTypes') :
+            elseif ($name == 'passengerTypes' && isset($value)) :
                 $passengerTypes = [];
                 foreach ($value as $key => $t) :
                     $passengerTypes[$key] = new PassengerType($t);
                 endforeach;
                 $passengerTypes = (object)$passengerTypes;
                 $this->passengerTypes = $passengerTypes;
-            elseif ($name == 'vessels') :
+            elseif ($name == 'vessels' && isset($value)) :
                 $vessels = [];
                 foreach ($value as $key => $t) :
                     $vessels[$key] = new VesselDictionary($t);

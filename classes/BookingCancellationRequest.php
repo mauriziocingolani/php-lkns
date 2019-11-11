@@ -22,7 +22,7 @@ class BookingCancellationRequest {
     public $severeError;
     public $crsReservationId;
     public $askForFees;
-    public $trips;
+    public $trips = [];
 
     /* Metodi */
 

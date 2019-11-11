@@ -18,10 +18,13 @@ class DiscountDictionary {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'vehicles') :
-                foreach ($value as $v) :
-                    $this->vehicles[] = new Discount($v);
+            if ($name == 'vehicles' && isset($value)) :
+                $vehicles = [];
+                foreach ($value as $v => $t) :
+                    $this->vehicles[$v] = new Discount($t);
                 endforeach;
+                $vehicles = (object)$vehicles;
+                $this->vehicles = $vehicles;
             endif;
         }
     }

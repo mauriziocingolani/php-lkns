@@ -17,7 +17,7 @@ class BookingModificationRequest {
 
     public $fareIdOrCode;
     public $crsReservationCode;
-    public $trips;
+    public $trips = [];
     public $leader;
 
     /* Metodi */
@@ -28,7 +28,7 @@ class BookingModificationRequest {
                 foreach ($value as $t) :
                     $this->trips[] = new Trip($t);
                 endforeach;
-            elseif ($name == 'leader') :
+            elseif ($name == 'leader'  && isset($value)) :
                 $this->leader = new BookingLeader($value);
             else :
                 $this->$name = $value;

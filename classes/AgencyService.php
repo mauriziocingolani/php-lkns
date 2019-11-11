@@ -25,7 +25,7 @@ class AgencyService {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if($name == 'deliveryAddress') :
+            if($name == 'deliveryAddress'  && isset($value)) :
                 $this->deliveryAddress = new Address($value);
             else:
                 $this->$name = $value;

@@ -15,7 +15,7 @@ namespace mauriziocingolani\lkns\classes;
 class BillingReconciliationRequestDto {
 
     public $crsReservationId;
-    public $trips;
+    public $trips = [];
     public $transactionCode;
 
     /* Metodi */

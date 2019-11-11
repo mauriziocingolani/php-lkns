@@ -28,7 +28,7 @@ class BookingLeader {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if($name == 'address') :
+            if($name == 'address' && isset($value)) :
                 $this->address = new Address($value);
             else:
                 $this->$name = $value;

@@ -25,11 +25,11 @@ class BookingRequest {
     public $fareIdOrCode;
     public $checkForAvailability;
     public $leader;
-    public $trips;
+    public $trips = [];
     public $openReturn;
     public $member;
-    public $bookingPaymentMethods;
-    public $farePerCompanies;
+    public $bookingPaymentMethods = [];
+    public $farePerCompanies = [];
     public $goToPayment;
     public $approvalCode;
     public $agencyService;
@@ -38,7 +38,7 @@ class BookingRequest {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'leader') :
+            if ($name == 'leader'  && isset($value)) :
                 $this->leader = new BookingLeader($value);
             elseif ($name == 'trips') :
                 foreach ($value as $trip) :
@@ -52,7 +52,7 @@ class BookingRequest {
                 foreach ($value as $fpc) :
                     $this->farePerCompanies[] = new FarePerCompany($fpc);
                 endforeach;
-            elseif ($name == 'agencyService') :
+            elseif ($name == 'agencyService'  && isset($value)) :
                 $this->agencyService = new AgencyService($value);
             else :
                 $this->$name = $value;

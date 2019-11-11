@@ -14,7 +14,7 @@ namespace mauriziocingolani\lkns\classes;
 class AdditionalService {
 
     public $name;
-    public $items;
+    public $items = [];
 
     /* Metodi */
 

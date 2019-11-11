@@ -27,7 +27,7 @@ class ConfirmPaymentRequest {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'leader') :
+            if ($name == 'leader' && isset($value)) :
                 $this->leader = new BookingLeader($value);
             else :
                 $this->$name = $value;

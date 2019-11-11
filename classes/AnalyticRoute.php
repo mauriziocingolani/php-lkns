@@ -22,7 +22,7 @@ class AnalyticRoute {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if (in_Array($name, ['origin', 'destination'])) :
+            if (in_Array($name, ['origin', 'destination'])  && isset($value)) :
                 $this->$name = new Location($value);
             else :
                 $this->$name = $value;

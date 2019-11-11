@@ -18,7 +18,7 @@ class CashierTicketResponse {
     public $code;
     public $message;
     public $severeError;
-    public $cashierTickets;
+    public $cashierTickets = [];
 
     /* Metodi */
 

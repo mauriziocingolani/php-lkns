@@ -14,7 +14,7 @@ namespace mauriziocingolani\lkns\classes;
 class ConvertBookingToOpenRequest {
 
     public $crsReservationId;
-    public $tickets;
+    public $tickets = [];
 
     /* Metodi */
 

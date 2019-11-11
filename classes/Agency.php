@@ -30,7 +30,7 @@ class Agency {
     public $afm;
     public $commerceName;
     public $phone;
-    public $agencyUsers;
+    public $agencyUsers = [];
 
     /* Metodi */
 

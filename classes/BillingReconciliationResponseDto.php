@@ -26,7 +26,7 @@ class BillingReconciliationResponseDto {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'bookingResponse') :
+            if ($name == 'bookingResponse'  && isset($value)) :
                 $this->bookingResponse = new BookingResponse($value);
             else :
                 $this->$name = $value;

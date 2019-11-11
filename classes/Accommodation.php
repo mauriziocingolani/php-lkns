@@ -53,7 +53,7 @@ class Accommodation {
     public function __construct($params) {
         foreach ($params as $name => $value) {
             if ($name == 'company') :
-                $this->company = new Company($value);
+                $this->company = new Company($value && isset($value));
             elseif ($name == 'images') :
                 foreach ($value as $i) :
                     $this->images[] = new Image($i);

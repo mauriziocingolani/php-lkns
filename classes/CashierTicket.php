@@ -24,9 +24,9 @@ class CashierTicket {
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'vessel') :
+            if ($name == 'vessel' && isset($value)) :
                 $this->vessel = new Vessel($value);
-            elseif ($name == 'ticket') :
+            elseif ($name == 'ticket' && isset($value)) :
                 $this->ticket = new Ticket($value);
             else :
                 $this->$name = $value;
