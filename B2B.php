@@ -267,19 +267,26 @@ class B2B extends B2CFull {
     /**
      * getPassengerTypes
      * The response of the method, contains the valid passenger types.
-     * @param string $session
+     * @param string|array $sessionOrParams Session string or credentials array
      * @return PassengerType[]
      */
-    public function getPassengerTypes(string $session) {
+    public function getPassengerTypes($sessionOrParams) {
         $url = $this->url . '/passenger-types';
         $curl = new Curl($url);
-        $result = $curl->send($session);
+        if (is_string($sessionOrParams)) :
+            $result = $curl->send($sessionOrParams);
+        elseif (is_array($sessionOrParams)) :
+            $result = $curl->send(null, null, $this->_getCredentialsArray($sessionOrParams));
+        endif;
         $result = json_decode($result);
-        $data = [];
-        foreach ($result as $r) :
-            $data[] = new PassengerType($r);
-        endforeach;
-        return $data;
+        if (is_array($result)) :
+            $data = [];
+            foreach ($result as $r) :
+                $data[] = new PassengerType($r);
+            endforeach;
+            return $data;
+        endif;
+        return false;
     }
 
     /**
