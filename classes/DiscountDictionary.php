@@ -21,7 +21,7 @@ class DiscountDictionary {
             if ($name == 'vehicles' && isset($value)) :
                 $vehicles = [];
                 foreach ($value as $v => $t) :
-                    $this->vehicles[$v] = new Discount($t);
+                    $vehicles[$v] = new Discount($t);
                 endforeach;
                 $vehicles = (object)$vehicles;
                 $this->vehicles = $vehicles;
