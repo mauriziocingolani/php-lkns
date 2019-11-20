@@ -27,15 +27,19 @@ class VesselDictionary {
                 foreach ($value as $key => $t) :
                     $details[$key] = $t;
                 endforeach;
-                $details = (object)$details;
-                $this->details = $details;
+                if(count($details)):
+                    $details = (object)$details;
+                    $this->details = $details;
+                endif;
             elseif ($name == 'accommodationFacilities' && isset($value)) :
                 $accommodationFacilities = [];
                 foreach ($value as $key => $t) :
                     $accommodationFacilities[$key] = $t;
                 endforeach;
-                $accommodationFacilities = (object)$accommodationFacilities;
-                $this->accommodationFacilities = $accommodationFacilities;
+                if(count($accommodationFacilities)):
+                    $accommodationFacilities = (object)$accommodationFacilities;
+                    $this->accommodationFacilities = $accommodationFacilities;
+                endif;
             else:
                 $this->$name = $value;
             endif;

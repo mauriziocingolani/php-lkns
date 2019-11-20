@@ -25,15 +25,19 @@ class AccomodationDictionary {
                 foreach ($value as $key => $t) :
                     $passengers[$key] = new Accommodation($t);
                 endforeach;
-                $passengers = (object)$passengers;
-                $this->passengers = $passengers;
+                if(count($passengers)):
+                    $passengers = (object)$passengers;
+                    $this->passengers = $passengers;
+                endif;
             elseif ($name == 'vehicles' && isset($value)) :
                 $vehicles = [];
                 foreach ($value as $key => $t) :
                     $vehicles[$key] = new Accommodation($t);
                 endforeach;
-                $vehicles = (object)$vehicles;
-                $this->vehicles = $vehicles;
+                if(count($vehicles)):
+                    $vehicles = (object)$vehicles;
+                    $this->vehicles = $vehicles;
+                endif;
             endif;
         }
     }

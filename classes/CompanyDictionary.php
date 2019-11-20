@@ -39,22 +39,28 @@ class CompanyDictionary {
                 foreach ($value as $key => $t) :
                     $fareCodes[$key] = new Fare($t);
                 endforeach;
-                $fareCodes = (object)$fareCodes;
-                $this->fareCodes = $fareCodes;
+                if(count($fareCodes)):
+                    $fareCodes = (object)$fareCodes;
+                    $this->fareCodes = $fareCodes;
+                endif;
             elseif ($name == 'passengerTypes' && isset($value)) :
                 $passengerTypes = [];
                 foreach ($value as $key => $t) :
                     $passengerTypes[$key] = new PassengerType($t);
                 endforeach;
-                $passengerTypes = (object)$passengerTypes;
-                $this->passengerTypes = $passengerTypes;
+                if(count($passengerTypes)):
+                    $passengerTypes = (object)$passengerTypes;
+                    $this->passengerTypes = $passengerTypes;
+                endif;
             elseif ($name == 'vessels' && isset($value)) :
                 $vessels = [];
                 foreach ($value as $key => $t) :
                     $vessels[$key] = new VesselDictionary($t);
                 endforeach;
-                $vessels = (object)$vessels;
-                $this->vessels = $vessels;
+                if(count($vessels)):
+                    $vessels = (object)$vessels;
+                    $this->vessels = $vessels;
+                endif;
             else :
                 $this->$name = $value;
             endif;

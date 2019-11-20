@@ -23,8 +23,10 @@ class DiscountDictionary {
                 foreach ($value as $v => $t) :
                     $vehicles[$v] = new Discount($t);
                 endforeach;
-                $vehicles = (object)$vehicles;
-                $this->vehicles = $vehicles;
+                if(count($vehicles)):
+                    $vehicles = (object)$vehicles;
+                    $this->vehicles = $vehicles;
+                endif;
             endif;
         }
     }
