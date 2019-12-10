@@ -21,7 +21,7 @@ use mauriziocingolani\lkns\classes\{
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
  * @author Paolo Calvaresi <paolo.calvaresi.v@gmail.com>
  * @author Michele Domesi <m.domesi@hotmail.it>
- * @version 1.0.2
+ * @version 1.0.3
  */
 class B2CBasic {
 
@@ -428,8 +428,11 @@ class B2CBasic {
         elseif (is_array($sessionOrParams)) :
             $result = $curl->send(null, $body, $this->_getCredentialsArray($sessionOrParams));
         endif;
-        $result = json_decode($result);
-        return new PricingResponse($result);
+        $data = json_decode($result);
+        if ($data) :
+            return new PricingResponse($data);
+        endif;
+        throw new LiknossException($result);
     }
 
     /**
