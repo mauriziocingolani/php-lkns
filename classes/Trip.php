@@ -65,15 +65,22 @@ class Trip {
     public $basicPrice;
     public $discountPrice;
     public $bookingValidation;
+    private $_departure;
+    private $_arrival;
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if ($name == 'vessel' && isset($value)) :
+            if ($name == 'departureDateTime') :
+                $this->_departure = new \DateTime($value);
+            elseif ($name == 'arrivalDateTime') :
+                $this->_arrival = new \DateTime($value);
+            elseif ($name == 'vessel' && isset($value)) :
                 $this->vessel = new Vessel($value);
             elseif (in_Array($name, ['origin', 'destination']) && isset($value)) :
-                $this->$name = new Location($value);;
+                $this->$name = new Location($value);
+                ;
             elseif ($name == 'accommodationAvailabilities' && isset($value)) :
                 foreach ($value as $accA) :
                     $this->accommodationAvailabilities[] = new AccommodationAvailability($accA);
@@ -111,11 +118,26 @@ class Trip {
                     $this->vehicles[] = new Vehicle($v);
                 endforeach;
             elseif ($name == 'bookingValidation' && isset($value)) :
-                    $this->bookingValidation = new BookingValidation($value);
+                $this->bookingValidation = new BookingValidation($value);
             else :
                 $this->$name = $value;
             endif;
         }
+    }
+
+    /* Getters */
+
+    public function getDepartureTime() {
+        return $this->_departure->format('H:i');
+    }
+
+    public function getArrivalTime() {
+        return $this->_arrival->format('H:i');
+    }
+
+    public function getTripDuration() {
+        $diff = $this->_arrival->diff($this->_departure);
+        return ($diff->h ? $diff->h . 'h' : null) . ($diff->m ? ' ' . $diff->m . 'm' : null);
     }
 
     /* Metodi statici */
