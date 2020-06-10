@@ -34,7 +34,7 @@ namespace mauriziocingolani\lkns\classes;
  * @property BookingValidation $bookingValidation
  * 
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
- * @version 1.0
+ * @version 1.0.1
  */
 class Trip {
 
@@ -137,7 +137,8 @@ class Trip {
 
     public function getTripDuration() {
         $diff = $this->_arrival->diff($this->_departure);
-        return ($diff->h ? $diff->h . 'h' : null) . ($diff->m ? ' ' . $diff->m . 'm' : null);
+        $hours = ($diff->days ? $diff->days * 24 : 0) + ($diff->h ?? 0);
+        return($hours ? $hours . 'h' : null) . ($diff->m ? ' ' . $diff->m . 'm' : null);
     }
 
     /* Metodi statici */
