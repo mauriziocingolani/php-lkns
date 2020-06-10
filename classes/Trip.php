@@ -34,7 +34,7 @@ namespace mauriziocingolani\lkns\classes;
  * @property BookingValidation $bookingValidation
  * 
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
- * @version 1.0.1
+ * @version 1.0.2
  */
 class Trip {
 
@@ -139,6 +139,34 @@ class Trip {
         $diff = $this->_arrival->diff($this->_departure);
         $hours = ($diff->days ? $diff->days * 24 : 0) + ($diff->h ?? 0);
         return($hours ? $hours . 'h' : null) . ($diff->m ? ' ' . $diff->m . 'm' : null);
+    }
+    
+        public function getAvailabilities() {
+        $data = ['car' => false, 'people' => false];
+        foreach ($this->accommodationAvailabilities as $aa) :
+            if ($aa->accommodation->idOrCode == 'IX1') : # car
+                if ($this->vessel->hasGarage) :
+                    $data['car'] = $aa->wholeBerthAvailability;
+                endif;
+            else : # people
+                $data['people'] = max($data['people'], $aa->maleBerthAvailability, $aa->femaleBerthAvailability);
+            endif;
+        endforeach;
+        return $data;
+    }
+
+    public function getPrices() {
+        $data = ['deck' => false, 'seat' => false, 'cabin' => false];
+        foreach ($this->accommodationAvailabilities as $aa) :
+            if ($aa->accommodation->idOrCode == 'D') : # deck
+                $data['deck'] = min(is_bool($data['deck']) ? PHP_INT_MAX : $data['deck'], (float) ($aa->adultBasePrice / 100));
+            elseif ($aa->accommodation->idOrCode == 'ATS') : # seat
+                $data['seat'] = min(is_bool($data['seat']) ? PHP_INT_MAX : $data['seat'], (float) ($aa->adultBasePrice / 100));
+            elseif ($aa->accommodation->idOrCode != 'IX1') : # cabin
+                $data['cabin'] = min(is_bool($data['cabin']) ? PHP_INT_MAX : $data['cabin'], (float) ($aa->adultBasePrice / 100));
+            endif;
+        endforeach;
+        return $data;
     }
 
     /* Metodi statici */
