@@ -34,7 +34,7 @@ namespace mauriziocingolani\lkns\classes;
  * @property BookingValidation $bookingValidation
  * 
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
- * @version 1.0.2
+ * @version 1.0.3
  */
 class Trip {
 
@@ -138,10 +138,10 @@ class Trip {
     public function getTripDuration() {
         $diff = $this->_arrival->diff($this->_departure);
         $hours = ($diff->days ? $diff->days * 24 : 0) + ($diff->h ?? 0);
-        return($hours ? $hours . 'h' : null) . ($diff->m ? ' ' . $diff->m . 'm' : null);
+        return($hours ? $hours . 'h' : null) . ($diff->i ? ' ' . $diff->i . 'm' : null);
     }
-    
-        public function getAvailabilities() {
+
+    public function getAvailabilities() {
         $data = ['car' => false, 'people' => false];
         foreach ($this->accommodationAvailabilities as $aa) :
             if ($aa->accommodation->idOrCode == 'IX1') : # car
