@@ -15,7 +15,7 @@ namespace mauriziocingolani\lkns\classes;
  * @property Vessel $vessel 
  * 
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
- * @version 1.0
+ * @version 1.0.1
  */
 class IntermediateStop {
 
@@ -27,17 +27,39 @@ class IntermediateStop {
     public $arrivalDateTimeWithTimezone;
     public $duration;
     public $vessel;
+    private $_departure;
+    private $_arrival;
 
     /* Metodi */
 
     public function __construct($params) {
         foreach ($params as $name => $value) {
-            if($name == 'vessel' && isset($value)) :
+            if ($name == 'vessel' && isset($value)) :
                 $this->vessel = new Vessel($value);
+            elseif ($name == 'departureDateTime') :
+                $this->_departure = new \DateTime($value);
+            elseif ($name == 'arrivalDateTime') :
+                $this->_arrival = new \DateTime($value);
             else:
                 $this->$name = $value;
             endif;
         }
+    }
+
+    /* Getters */
+
+    public function getDepartureTime($format = 'H:i') {
+        return $this->_departure->format($format);
+    }
+
+    public function getArrivalTime($format = 'H:i') {
+        return $this->_arrival->format($format);
+    }
+
+    public function getStopDuration() {
+        $diff = $this->_arrival->diff($this->_departure);
+        $hours = ($diff->days ? $diff->days * 24 : 0) + ($diff->h ?? 0);
+        return($hours ? $hours . 'h' : null) . ($diff->i ? ' ' . $diff->i . 'm' : null);
     }
 
     /* Metodi statici */

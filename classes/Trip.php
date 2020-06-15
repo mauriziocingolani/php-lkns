@@ -34,7 +34,7 @@ namespace mauriziocingolani\lkns\classes;
  * @property BookingValidation $bookingValidation
  * 
  * @author Maurizio Cingolani <mauriziocingolani74@gmail.com>
- * @version 1.0.3
+ * @version 1.0.4
  */
 class Trip {
 
@@ -127,12 +127,12 @@ class Trip {
 
     /* Getters */
 
-    public function getDepartureTime() {
-        return $this->_departure->format('H:i');
+    public function getDepartureTime($format = 'H:i') {
+        return $this->_departure->format($format);
     }
 
-    public function getArrivalTime() {
-        return $this->_arrival->format('H:i');
+    public function getArrivalTime($format = 'H:i') {
+        return $this->_arrival->format($format);
     }
 
     public function getTripDuration() {
